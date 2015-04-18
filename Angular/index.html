@@ -25,12 +25,13 @@
             <h2>Our Portfolio: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em></h2>
             <div class="panel panel-info" ng-repeat="stock in dashboard.stocks">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><h4>{{stock.ticker}} ({{stock.name}})</h3>
+                    <div class="panel-title"><h4>{{stock.ticker}} ({{stock.name}}): <em>{{stock.price | currency}}</em></h4></div>
                   </div>
                 <div class="panel-body">
-                     <h2><em>{{stock.price | currency}}</em></h2>
+                     <!-- Where stock chart would go -->
+                     <div ng-class="'ticker-' + stock.ticker" style="min-width: 310px; height: 200px; margin: 0 auto">asdfads</div>
                 </div>
-                <div class="panel-footer">Display Stock Chart Here</div>
+                <!--div class="panel-footer"><h4><em>{{stock.price | currency}}</em></h4></div-->
             </div>
         </div>
 
@@ -52,6 +53,7 @@
             </div>
         </div>
     </div>
+    <!--div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div-->
 
     <footer style="display: block;">
         <div class=""><h3>There is/are {{getNumberOfHoldings()}} stock(s) in your portfolio.</h3></div>
@@ -61,6 +63,9 @@
     <script src="scripts/angular.min.js"></script>
     <script src="scripts/jquery-2.1.3.min.js"></script>
     <script src="scripts/lodash.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="scripts/highchart-dark-unica.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
