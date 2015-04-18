@@ -35,3 +35,38 @@ Thoughts
 * Input source: Twitch? Twitter?
 * APIs:
 Quantconnect
+
+## API List
+
+### Market Data
+* xignite
+* Tagnify: Investment Grade Fundamental Data, End of Day Equities Market Data
+
+### Market Analysis
+* Psychsignal: Get indications of direction of markets based on sentiment analysis
+* ChartIQ: Technical Analysis
+* Stocktwit: Aggregation of social data for equities
+* Estimize: Platform for earnings forecasts
+
+### Development / Infra
+* MongoDB: Document-based Database
+* OpenShift: Cloud development, hosting, 
+* openFin: Secure HTML5 runtime to run HTML5 apps faster outside of a browser
+* context.io: Sync email with your app
+
+## Miscellaneous
+* Oanda: Forex Trading
+* Zipmark: Digital Check payment
+* MasterCard: Payments, Security, Business Data, Card Data
+
+## Unclassified
+* Quantconnect: Research, backtest, and trade your investments
+* Vestorly
+* Quovo: Data science for the art of investing
+
+
+
+
+
+
+
