@@ -110,7 +110,7 @@ function emitData() {
         // assemble holding object
         var holding = {
             ticker: holdingTick,
-            // name: DATA_SERVICE.getName(holdingTick),
+            name: DATA_SERVICE.getName(holdingTick),
             price: DATA_SERVICE.getLastN(holdingTick, N_DATA_PTS),
             quantity: data.holdings[holdingTick]
         };
