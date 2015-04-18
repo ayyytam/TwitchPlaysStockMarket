@@ -8,6 +8,10 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var utils = require('./utility.js');
+
 var app = express();
 
 
@@ -23,12 +27,9 @@ app.use(logger('dev'));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'Angular')));
 
-// // share an object of the data
-// var data = {};
-// app.use(function (request, response, next) {
-//     request.data = data;
-//     next();
-// });
+// share an object of the data
+var data = {};
+utils.data = data;
 
 // app.use('/', routes);
 // app.use('/users', users);
@@ -64,12 +65,19 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var http = require('./chatserver.js')(app);
+function chatServer(app) {
+    io.on('connection', function(socket) {
+        console.log('a user connected');
+        socket.on('chat message', function(msg) {
+            io.emit('chat message', msg);
+            utils.parseMessage(msg);
+        });
+    });
 
+    console.log('chat server started.');
+}
+chatServer(app);
 
-
-// module.exports = http;
-// app.listen(3000);
 http.listen(3000, function() {
-  console.log("main server started.")
+    console.log("main server started.")
 })
