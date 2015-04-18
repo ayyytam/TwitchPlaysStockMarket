@@ -8,7 +8,10 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 					{ticker: "AAPL", name: "Apple", price: 453.54},
 					{ticker: "BLAH", name: "Blah Blah Blah", price: 32.88}];
 	this.stocks = $scope.stocks;
+	$scope.netGainLoss = 23423.43;
+	$scope.cash = 2003430.55;
 
+	// Display Stock Charts for each stock
 	$scope.stocks.forEach(function(element) {
 		console.log(element);
 		var tickerContainerName = ".ticker-" + element.ticker;
@@ -182,13 +185,11 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 	});
 
 	//***********************METHODS***********************//
-	//TODO Needs to be called by server
 	$scope.addStock = function(newStock) {
 		$scope.stocks.push(newStock);
 		console.log(newStock.ticker + " was added to the portfolio!");
 	};
 
-	//TODO
 	$scope.removeStock = function(ticker) {
 		_.remove($scope.stocks, function(stock) {
 			return stock.ticker == ticker;
@@ -200,23 +201,33 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
     	return $scope.stocks.length;
   	};
 
-  	//TODO
   	$scope.getNetGainLoss = function() {
-  		return +23423.43;
+  		return $scope.netGainLoss;
+  	};
+
+  	$scope.getCash = function() {
+  		return $scope.cash;
   	};
 
   	$scope.getChartTickerClass = function(stock) {
   		return stock.ticker;
   	}
-
-  	//Test code
-  	$scope.addStock({ticker: "SDF", name: "Adfddd", price: 453.54});
-  	$scope.removeStock("SDF");
 });
 
+// Custom Filter for displaying Gain/Loss
 twitchPlaysStockMarket.filter('gainLossFilter', ['$filter', function ($filter) {
 	return function (input) {
 		return (input > 0 ? "+" : "") + $filter('currency')(input);
 	};
 }]);
 
+// Parallax Scrolling
+var jumboHeight = $('.jumbotron').outerHeight();
+function parallax(){
+    var scrolled = $(window).scrollTop();
+    $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+}
+
+$(window).scroll(function(e){
+    parallax();
+});

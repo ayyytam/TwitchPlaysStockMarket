@@ -13,16 +13,15 @@
 </head>
 <body class="container" ng-controller="DashboardController as dashboard">
     <div class="row">
-
+        <div class="bg"></div>
         <div class="jumbotron">
-            <div class="bg"></div>
             <h1>Twitch Plays Stock Market<img src="images/pikachu.png" style="text-align: right" width="175px"></h1>
             <p>Crowdsource Stock Trading</p> 
         </div>
 
         <!-- Where stock panels will go -->
         <div class="col-md-8">
-            <h2>Our Portfolio: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em></h2>
+            <h2>Our Portfolio: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em> Cash: <em class="cash">{{getCash() | currency}}</em></h2>
             <div class="panel panel-info" ng-repeat="stock in dashboard.stocks">
                 <div class="panel-heading">
                     <div class="panel-title"><h4>{{stock.ticker}} ({{stock.name}}): <em>{{stock.price | currency}}</em></h4></div>
