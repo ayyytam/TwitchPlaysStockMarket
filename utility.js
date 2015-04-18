@@ -1,3 +1,5 @@
+const DATA = require('./getData.js');
+
 const COMMANDS = {
     HELP: "help",
     BUY: "buy",
@@ -18,23 +20,23 @@ const HELP_MESSAGE = "Commands should be in the following format: " +
 
 function displayHoldings() {
     var str = "cash: " + utils.data.cash + ", holdings: [";
-    
+
     var hasHoldings = false;
     for (x in utils.data.holdings) {
         str += x + ": " + utils.data.holdings[x] + ", ";
         hasHoldings = true;
     }
-    
+
     if (hasHoldings) {
         str = str.substr(0, str.length - 2);
     }
-    
+
     str += "]";
     return str;
 }
 
 function getPrice(ticker) {
-    return 1;
+    return DATA.getNext(ticker);
 }
 
 function executeMarketOrder(command, ticker, quantity) {
@@ -44,7 +46,7 @@ function executeMarketOrder(command, ticker, quantity) {
         console.log(price, quantity);
         return ERROR_MESSAGE;
     }
-    
+
     var pastVerb, multiplier;
     if (command === COMMANDS.BUY) {
         if (price * quantity > data.cash) {
@@ -61,7 +63,7 @@ function executeMarketOrder(command, ticker, quantity) {
         multiplier = -1;
         pastVerb = "Sold";
     }
-    
+
     data.cash -= price * quantity * multiplier;
     if (!data.holdings[ticker]) {
         data.holdings[ticker] = 0;
