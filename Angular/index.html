@@ -19,7 +19,7 @@
 
         <!-- Where stock panels will go -->
         <div class="col-md-8">
-            <h2>My Portfolio</h2>
+            <h2>My Portfolio: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em></h2>
             <ul>
                 <div class="panel panel-default" ng-repeat="stock in dashboard.stocks">
                     <div class="panel-body">
@@ -48,12 +48,13 @@
     </div>
 
     <footer style="display: block;">
-        <div class="">There is/are {{remaining()}} stock(s) in your portfolio.</div>
+        <div class=""><h3>There is/are {{getNumberOfHoldings()}} stock(s) in your portfolio.</h3></div>
     </footer>
 
     <!-- Libs -->
     <script src="scripts/angular.min.js"></script>
     <script src="scripts/jquery-2.1.3.min.js"></script>
+    <script src="scripts/lodash.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
