@@ -4852,11 +4852,17 @@ a.badge:focus {
 .nav-pills > li > a > .badge {
   margin-left: 3px;
 }
-.jumbotron {
+/*.jumbotron { //This is the default
   /*padding: 30px 15px;*/
   margin-bottom: 30px;
   color: inherit;
   background-color: #1c1e22;
+}
+.jumbotron {
+  height: 275px;
+  color: white;
+  text-shadow: #444 0 1px 1px;
+  background:transparent;
 }
 .jumbotron h1,
 .jumbotron .h1 {
@@ -5599,7 +5605,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel-info > .panel-heading .badge {
   color: #5bc0de;
-  background-color: #ffffff;
+  background-color:#2e6364;;
 }
 .panel-info > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: rgba(0, 0, 0, 0.6);
@@ -7046,7 +7052,7 @@ a.list-group-item-danger.active:focus {
   background-color: #ec4844;
 }
 .jumbotron {
-  border: 1px solid rgba(0, 0, 0, 0.6);
+  /*border: 1px solid rgba(0, 0, 0, 0.6);*/
 }
 .panel-primary .panel-heading,
 .panel-success .panel-heading,
