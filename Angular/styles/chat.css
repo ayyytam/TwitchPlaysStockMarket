@@ -6,4 +6,4 @@
 #chat-window form button { background: #666; color: #fff; border: none; padding: 10px; width: 20%;}
 #chat-window #messages { list-style-type: none; margin: 0; padding: 0; }
 #chat-window #messages li { padding: 5px 10px; }
-#chat-window #messages li:nth-child(odd) { background: #eee; }
+#chat-window #messages li:nth-child(odd) { background: #5bc0de; }
