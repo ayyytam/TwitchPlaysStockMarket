@@ -1,5 +1,3 @@
-const DATA = require('./getData.js');
-
 const COMMANDS = {
     HELP: "help",
     BUY: "buy",
@@ -36,7 +34,7 @@ function displayHoldings() {
 }
 
 function getPrice(ticker) {
-    return DATA.getNext(ticker);
+    return utils.DATA_SERVICE.getNext(ticker);
 }
 
 function executeMarketOrder(command, ticker, quantity) {
