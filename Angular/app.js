@@ -31,7 +31,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 		        },
 		        yAxis: {
 		            title: {
-		                text: 'Exchange rate'
+		                text: 'Price ($)'
 		            }
 		        },
 		        legend: {
