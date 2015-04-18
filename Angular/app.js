@@ -9,18 +9,33 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 					{ticker: "BLAH", name: "Blah Blah Blah", price: 32.88}];
 	this.stocks = $scope.stocks;
 
-	//TODO
+	//TODO Needs to be called by server
 	$scope.addStock = function(newStock) {
 		$scope.stocks.push(newStock);
 	};
 
 	//TODO
-	$scope.removeStock = function(ticker) {};
+	$scope.removeStock = function(ticker) {
+		
+	};
 
-	$scope.remaining = function() {
+	$scope.getNumberOfHoldings = function() {
     	return $scope.stocks.length;
   	};
 
-  	console.log($scope.stocks.length);
+  	//TODO
+  	$scope.getNetGainLoss = function() {
+  		return +23423.43;
+  	};
+
+
+
+  	$scope.addStock({ticker: "SDF", name: "Adfddd", price: 453.54})
 });
+
+twitchPlaysStockMarket.filter('gainLossFilter', ['$filter', function ($filter) {
+	return function (input) {
+		return (input > 0 ? "+" : "") + $filter('currency')(input);
+	};
+}]);
 
