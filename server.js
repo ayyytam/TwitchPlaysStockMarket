@@ -14,12 +14,15 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var utils = require('./utility.js');
 
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(path.join(__dirname, 'Angular', 'images', 'pikachu.png')));
 app.use(logger('dev'));
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -82,6 +85,6 @@ function chatServer(app) {
 }
 chatServer(app);
 
-http.listen(3000, function() {
+http.listen(server_port, server_ip_address, function() {
     console.log("main server started.")
 })
