@@ -21,7 +21,7 @@
 
         <!-- Where stock panels will go -->
         <div class="col-md-8">
-            <h2>Our Portfolio: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em></h2>
+            <h2>Our Portfolio: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em> Cash: <em class="cash">{{getCash() | currency}}</em></h2>
             <div class="panel panel-info" ng-repeat="stock in dashboard.stocks">
                 <div class="panel-heading">
                     <div class="panel-title"><h4>{{stock.ticker}} ({{stock.name}}): <em>{{stock.price | currency}}</em></h4></div>
