@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Twitch Plays Stock Market</title>
     <link rel="stylesheet" href="styles/app.css" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"-->
     <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"-->
     <link rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.css">
     <link rel="stylesheet" href="styles/chat.css">
@@ -33,17 +33,22 @@
         <!-- Where chat window will go -->
         <div class="col-md-4">
             <h2>Chat Window</h2>
-            <div id="chat-window">
-                <ul id="messages"></ul>
-                <form action="">
-                    <input id="m" autocomplete="off" /><button>Send</button>
-                </form>
+            <div id="chat-window" class="panel panel-info">
+                <div class="panel-body">
+                    <h4>Chat or place orders here</h4>
+                    <ul id="messages"></ul>
+                </div>
+                <div class="panel-footer">
+                    <form action="">
+                        <input id="m" autocomplete="off" /><button>Send</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
     <footer style="display: block;">
-        <div class="">There is/are {{remaining()}} stocks in your portfolio.</div>
+        <div class="">There is/are {{remaining()}} stock(s) in your portfolio.</div>
     </footer>
 
     <!-- Libs -->
