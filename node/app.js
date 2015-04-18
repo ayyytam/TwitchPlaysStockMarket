@@ -69,7 +69,10 @@ function chatServer(app) {
         console.log('a user connected');
         socket.on('chat message', function(msg) {
             io.emit('chat message', msg);
-            utils.parseMessage(msg);
+            var result = utils.parseMessage(msg);
+            if (result) {
+                io.emit('chat message', result);
+            }
         });
     });
 
