@@ -4853,7 +4853,7 @@ a.badge:focus {
   margin-left: 3px;
 }
 .jumbotron {
-  padding: 30px 15px;
+  /*padding: 30px 15px;*/
   margin-bottom: 30px;
   color: inherit;
   background-color: #1c1e22;
@@ -4879,7 +4879,7 @@ a.badge:focus {
 }
 @media screen and (min-width: 768px) {
   .jumbotron {
-    padding: 48px 0;
+    /*padding: 48px 0;*/
   }
   .container .jumbotron,
   .container-fluid .jumbotron {
@@ -5599,8 +5599,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel-info > .panel-heading .badge {
   color: #5bc0de;
-  /*background-color: #ffffff;*/
-  background-color: #5bc0de;
+  background-color: #ffffff;
 }
 .panel-info > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: rgba(0, 0, 0, 0.6);
