@@ -12,15 +12,36 @@
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">Twitch Plays Stock Market</a>
+                    <a class="navbar-brand">Twitch Plays Stock Market</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- Where stock panels will go -->
-    <div>Whatup my ninjaz</div>
+    <div class="row">
+        <div class="jumbotron">
+            <h1>Twitch Plays Stock market</h1>
+            <p>Blah blah blah</p> 
+        </div>
+        <!-- Where stock panels will go -->
+        <div class="col-md-8">
+            <h1>Stock Panels go here</h1>
+            <ul class="products list-unstyled" ng-controller="mainController">
+                <li class="row" ng-repeat="">
+                    <h1>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Where chat window will go -->
+        <div class="col-md-4">
+            <h1>Chat Window</h1>
+        </div>
+    </div>
+
+    <!-- Libs -->
     <script type="text/javascript" src="scripts/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
