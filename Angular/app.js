@@ -12,11 +12,15 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 	//TODO Needs to be called by server
 	$scope.addStock = function(newStock) {
 		$scope.stocks.push(newStock);
+		console.log(newStock.ticker + " was added to the portfolio!");
 	};
 
 	//TODO
 	$scope.removeStock = function(ticker) {
-		
+		_.remove($scope.stocks, function(stock) {
+			return stock.ticker == ticker;
+		});
+		console.log( "Stock with ticker " + ticker + " was removed from the portfolio");
 	};
 
 	$scope.getNumberOfHoldings = function() {
@@ -28,9 +32,9 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
   		return +23423.43;
   	};
 
-
-
-  	$scope.addStock({ticker: "SDF", name: "Adfddd", price: 453.54})
+  	//Test code
+  	$scope.addStock({ticker: "SDF", name: "Adfddd", price: 453.54});
+  	$scope.removeStock("SDF");
 });
 
 twitchPlaysStockMarket.filter('gainLossFilter', ['$filter', function ($filter) {
