@@ -27,7 +27,9 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'Angular')));
 
 // share an object of the data
-var data = {};
+var data = {
+    cash: 100
+};
 utils.data = data;
 
 // app.use('/', routes);

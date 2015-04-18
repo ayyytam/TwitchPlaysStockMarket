@@ -1,6 +1,8 @@
 const COMMANDS = {
+    HELP: "help",
     BUY: "buy",
-    SELL: "sell"
+    SELL: "sell",
+    PORTFOLIO: "display"
 };
 
 const ACTIONS = {
@@ -8,33 +10,47 @@ const ACTIONS = {
     LIMIT: "limit"
 };
 
+const ERROR_MESSAGE = "Command not recognized"
+
+const HELP_MESSAGE = "Commands should be in the following format: " +
+    "!action ticker quantity type. " +
+    "For example, !buy goog 100 mkt";
+
 function displayHoldings() {
     var str = "";
     for (x in utils.data) {
-        str += x + ": " + utils.data[x];
+        str += x + ": " + utils.data[x] + " ";
     }
     return str;
 }
 
+function getPrice(ticker) {
+    return 1;
+}
+
 function executeMarketOrder(command, ticker, quantity) {
     var price = getPrice(ticker);
-    var pastVerb;
-    if (action === COMMANDS.BUY) {
+    var pastVerb, multiplier;
+    if (command === COMMANDS.BUY) {
         if (price * quantity > utils.data.cash) {
             return "Insufficient funds";
         }
+        multiplier = 1;
         pastVerb = "Bought";
     }
-    else if (action === COMMANDS.SELL) {
-        if (quantity > utils.data[ticker]) {
+    else if (command === COMMANDS.SELL) {
+        if (!utils.data[ticker] || quantity > utils.data[ticker]) {
             return "Insufficient holdings";
         }
-        quantity *= -1;
+        multiplier = -1;
         pastVerb = "Sold";
     }
     
-    utils.data.cash -= price * quantity;
-    utils.data[ticker] += quantity;
+    utils.data.cash -= price * quantity * multiplier;
+    if (!utils.data[ticker]) {
+        utils.data[ticker] = 0;
+    }
+    utils.data[ticker] += quantity * multiplier;
     return pastVerb + " " + quantity + " shares of " +
         ticker.toUpperCase() + " for " + price + " each";
 }
@@ -45,10 +61,13 @@ var utils = {
         if (message && message.charAt(0) === "!") {
             console.log("this is a command");
             // This is a command
-            var tokens = message.toLowerCase().split();
+            var tokens = message.toLowerCase().split(/\s/);
             var command = tokens[0].substr(1);
 
             switch (command) {
+            case COMMANDS.HELP:
+                return HELP_MESSAGE;
+
             case COMMANDS.BUY:
             case COMMANDS.SELL:
                 var ticker = tokens[1];
@@ -65,13 +84,15 @@ var utils = {
                     // TODO limit order
                     break;
                 default:
-                    // TODO unrecognized action
+                    return ERROR_MESSAGE;
                 }
-                
                 break;
+
+            case COMMANDS.PORTFOLIO:
+                return displayHoldings();
+
             default:
-                // TODO unrecognized command
-                break;
+                return ERROR_MESSAGE;
             }
         }
     }
