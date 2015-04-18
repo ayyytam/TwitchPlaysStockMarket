@@ -31,7 +31,9 @@ app.use(express.static(path.join(__dirname, 'Angular')));
 
 // share an object of the data
 var data = {
-    cash: 100
+    initialValue: 100,
+    cash: 100,
+    holdings: {}
 };
 utils.data = data;
 
