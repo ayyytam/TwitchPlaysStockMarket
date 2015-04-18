@@ -10,6 +10,8 @@ var users = require('./routes/users');
 
 var app = express();
 
+var chats = require('./chatserver.js')(app);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -58,3 +60,4 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+//app.listen(3000);
