@@ -29,10 +29,10 @@
         <!-- Where stock panels will go -->
         <div class="col-md-8">
             <h3>Stock Panels go here</h3>
-            <ul ng-controller="StockController">
-                <!--li class="row" ng-repeat="">
-                    <h1>
-                </li-->
+            <ul ng-controller="DashboardController as dashboard">
+                <li class="row" ng-repeat="stock in dashboard.stocks">
+                    <h3>asdfasdf</h3>
+                </li>
             </ul>
         </div>
 
@@ -50,8 +50,7 @@
 
     <!-- Libs -->
     <script type="text/javascript" src="scripts/angular.min.js"></script>
-    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery-2.1.3.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
