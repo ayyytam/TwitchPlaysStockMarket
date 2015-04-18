@@ -13,7 +13,7 @@ Takes the necessary actions given the comment submitted by the user in the chat 
 Creates order with specified parameters:
 * userid - name of user
 * action - either 'buy' or 'sell'
-* orderType - either 'market', 'limit', 'stop', or 'stop_loss'
+* orderType - either 'mkt', 'limit', 'stop', or 'stop_loss'
 * ticker - ticker
 * qty - number of stocks
 * price - price of order if limit, stop, or stop_loss
@@ -62,4 +62,17 @@ Data Services (Python / Flask)
 ** Returns a JSON array of 100 prices for that ticker:
 ```
 [10.20, 10.24, 10.01, ...]
+```
+
+Chat Commands
+----------------------
+
+The format of commands the application will recognize is:
+```
+!action ticker qty type [price]
+```
+Examples:
+```
+!buy goog 100 mkt
+!sell aapl 200 limit 50.19
 ```
