@@ -30,15 +30,3 @@
 .cash {
 	color: #093;
 }
-
-/* Chat Window Styling */
-#chat-window {
-	margin: 10px;
-}
-
-#chat-window form { background: #000; padding: 3px; width: 100%; }
-#chat-window form input { border: 0; padding: 10px; width: 80%;}
-#chat-window form button { background: #666; color: #fff; border: none; padding: 10px; width: 20%;}
-#chat-window #messages { list-style-type: none; margin: 0; padding: 0; }
-#chat-window #messages li { padding: 5px 10px; }
-#chat-window #messages li:nth-child(odd) { background: #2e6364; }
