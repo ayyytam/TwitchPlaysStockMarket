@@ -420,7 +420,10 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 			                    }
 			                },
 			                threshold: null
-			            }
+			            },
+						series: {
+							animation: false;
+						}
 			        },
 
 			        series: [{
