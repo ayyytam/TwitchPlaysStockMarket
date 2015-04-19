@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles/chat.css">
     <link rel="icon" href="images/pikachu.png" type="image/png">
 </head>
+
 <body class="container" ng-controller="DashboardController as dashboard">
     <div class="row">
         <div class="bg"></div>
@@ -22,7 +23,8 @@
         <!-- Where stock panels will go -->
         <div class="col-md-8">
             <h2>Portfolio Value: <em class="cash">{{getPortfolioValue() | currency}}</em> Gain/Loss: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em> Cash: <em class="cash">{{getCash() | currency}}</em></h2>
-            <div class="panel panel-info" ng-repeat="stock in dashboard.stocks">
+
+            <div class="panel panel-default" ng-repeat="stock in dashboard.stocks">
                 <div class="panel-heading">
                     <div class="panel-title"><h4>{{stock.ticker}} ({{stock.name}}): <em>{{stock.price[stock.price.length - 1] | currency}}</em></h4></div>
                   </div>
@@ -33,6 +35,7 @@
                 </div>
                 <!--div class="panel-footer"><h4><em>{{stock.price | currency}}</em></h4></div-->
             </div>
+
         </div>
 
         <!-- Where chat window will go -->
@@ -42,7 +45,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Chat or place orders here</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="min-height: 400px;max-height: 400px;overflow-y: scroll;">
                     <ul id="messages"></ul>
                 </div>
                 <div class="panel-footer">

@@ -32,6 +32,10 @@ function getName(ticker) {
     return utils.DATA_SERVICE.getName(ticker);
 }
 
+function formatPrice(price) {
+    return "$" + price.toFixed(2);
+}
+
 function executeMarketOrder(command, ticker, quantity) {
     var data = utils.data;
     var price = getPrice(ticker);
@@ -74,7 +78,23 @@ function executeMarketOrder(command, ticker, quantity) {
     }
     data.holdings[ticker] += quantity * multiplier;
     return pastVerb + " " + quantity + " shares of " +
-        ticker.toUpperCase() + " for " + price + " each";
+        ticker.toUpperCase() + " for " + formatPrice(price) + " each";
+}
+
+function getQuote(ticker) {
+    var price = getPrice(ticker);
+
+    if (!getName(ticker)) {
+        console.log("Invalid ticker - does not exist");
+        return INVALID_TICKER_MESSAGE;
+    }
+
+    if (isNaN(price)) {
+        console.log("NaN error. Price:", price);
+        return LOW_VOLUME_MESSAGE;
+    }
+
+    return price;
 }
 
 function holdingValue (x) {
@@ -128,6 +148,10 @@ var utils = {
                     return ERROR_MESSAGE;
                 }
                 break;
+
+            case COMMANDS.QUOTE:
+                var ticker = tokens[1];
+                return getQuote(ticker);
 
             case COMMANDS.PORTFOLIO:
                 return displayHoldings();
