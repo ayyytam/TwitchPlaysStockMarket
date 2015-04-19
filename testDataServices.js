@@ -17,3 +17,5 @@ for (var i = 0; i < 3; i++) {
 // TEST for getName(ticker)
 console.log(dataPull.getName('GOOG'));
 console.log(dataPull.getName('SHIT'));
+console.log(dataPull.getName('YHOO'));
+console.log(dataPull.getName('JPM'));

@@ -1,3 +1,8 @@
+const VALID_EXCHANGES = [
+    "ARCX", // NYSE ARCA
+    "XNAS", // NASDAQ
+];
+
 var http = require('http');
 var request = require('sync-request');
 
@@ -38,7 +43,15 @@ function getNewStock(ticker) {
 function getName(ticker) {
     var url = 'http://globalmaster.xignite.com/xglobalmaster.json/GetMasterByIdentifier?IdentifierType=Symbol&Identifier=' + ticker + '&StartDate=4/16/2015&EndDate=4/16/2015&_token=6E10075F14A6447E94C8700F8CF7116A';
     var response = request('GET', url);
-    return JSON.parse(response.getBody())[0].Name;
+    var body = JSON.parse(response.getBody());
+
+    for (var i = 0, length = body.length; i !== length; ++i) {
+        if (VALID_EXCHANGES.indexOf(body[i].Exchange) !== -1) {
+            return body[i].Name;
+        }
+    }
+
+    return null;
 }
 
 module.exports = {
