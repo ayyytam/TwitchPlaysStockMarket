@@ -2,9 +2,8 @@ var twitchPlaysStockMarket = angular.module('twitchPlaysStockMarket', []);
 
 twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, $filter) {
 	$scope.stocks = [];
-
-	//DUMMY DATA
-	$scope.data = {cash: 2003430.55, 
+	//DUMMY DATA (for tsting only)
+	/*$scope.data = {cash: 2003430.55, 
 				   initialValue: 400000,
 				   portfolioValue: 435000,
 				   holdings: [{ticker: "GOOG", name: "Google", price: [0.8446, 0.8445, 0.8444, 0.8451,    0.8418, 0.8264,    0.8258, 0.8232,    0.8233, 0.8258,
@@ -334,8 +333,13 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 			                0.7745, 0.771, 0.775, 0.7791, 0.7882, 0.7882, 0.7899, 0.7905, 0.7889, 0.7879,
 			                0.7855, 0.7866, 0.7865, 0.7795, 0.7758, 0.7717, 0.761, 0.7497, 0.7471, 0.7473,
 			                0.7407, 0.7288, 0.7074, 0.6927, 0.7083, 0.7191, 0.719, 0.7153, 0.7156, 0.7158,
-			                0.714, 0.7119, 0.7129, 0.7129, 0.7049, 0.7095], quantity: 200}]};
+			                0.714, 0.7119, 0.7129, 0.7129, 0.7049, 0.7095], quantity: 200}]};*/
+	$scope.data = {cash: 0, 
+				   initialValue: 0,
+				   portfolioValue: 0,
+				   holdings: [{ticker: "", name: "", price: [], quantity: 0}]};
 	this.stocks = $scope.data.holdings;
+	
 	//***********************METHODS***********************//
 
 	$scope.addStock = function(newStock) {
@@ -352,7 +356,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
   	$scope.getNetGainLoss = function() {
   		return $scope.data.portfolioValue - $scope.data.initialValue;
-  	};
+  	}; 
 
   	$scope.getCash = function() {
   		return $scope.data.cash;
@@ -430,6 +434,30 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
   	//TODO add event listener to update data. Should also call updateStockCharts function
   	$scope.updateStockCharts();
+  	var socket = io();
+
+	// Handle sending messages
+	$('#chat-window form').submit(function() {
+	    socket.emit('chat message', $('#m').val());
+	    $('#m').val('');
+	    return false;
+	});
+
+	// Handle receiving messages
+	socket.on('chat message', function(msg) {
+	    $('#messages').append($('<li>').text(msg));
+	});
+
+	// Handle receiving market data
+	var that = this;
+	socket.on('portfolio data', function(msg) {
+	    slug = JSON.parse(msg);
+	    $scope.data = slug;
+	    $scope.$apply();
+	    $scope.updateStockCharts();
+	    that.stocks = $scope.data.holdings;
+	    console.log(slug);
+	});
 });
 
 // Custom Filter for displaying Gain/Loss

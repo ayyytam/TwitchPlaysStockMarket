@@ -1,4 +1,4 @@
-var socket = io();
+/*var socket = io();
 
 // Handle sending messages
 $('#chat-window form').submit(function() {
@@ -17,3 +17,4 @@ socket.on('portfolio data', function(msg) {
     slug = JSON.parse(msg);
     console.log(slug);
 });
+*/
