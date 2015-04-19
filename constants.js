@@ -24,7 +24,7 @@ var constants = {
         "Quote commands should be in the following format: " +
         "!quote [ticker]. For example, !quote tsla.",
     // interval (milliseconds) for updating frontend
-    BOT_UPD_INTERVAL: 1245
+    BOT_UPD_INTERVAL: 3100
 
 };
 
