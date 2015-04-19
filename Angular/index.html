@@ -37,9 +37,9 @@
                     <div class="panel-title">
                         <h4>{{stock.ticker | uppercase}}
                             ({{stock.name}}):
-                            <em>{{stock.price[stock.price.length - 1] | currency}}</em> <!--ADD CUSTOM STYLING -->
+                            <em class="cash">{{stock.price[stock.price.length - 1] | currency}}</em> <!--ADD CUSTOM STYLING -->
                             | Shares:
-                            <em>{{stock.quantity}}</em>
+                            <em class="numbers">{{stock.quantity}}</em>
                         </h4>
                     </div>
                   </div>
