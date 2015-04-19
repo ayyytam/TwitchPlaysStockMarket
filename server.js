@@ -13,9 +13,16 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var utils = require('./utility.js');
+const DATA_SERVICE = require('./getData.js');
 
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
+// interval (milliseconds) for updating frontend
+const DATA_UPD_INTERVAL = 500;
+
+// starting cash for the portfolio
+const START_CASH = 1000000;
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -31,11 +38,12 @@ app.use(express.static(path.join(__dirname, 'Angular')));
 
 // share an object of the data
 var data = {
-    initialValue: 100,
-    cash: 100,
+    initialValue: START_CASH,
+    cash: START_CASH,
     holdings: {}
 };
 utils.data = data;
+utils.DATA_SERVICE = DATA_SERVICE;
 
 // app.use('/', routes);
 // app.use('/users', users);
@@ -86,6 +94,56 @@ function chatServer(app) {
     console.log('chat server started.');
 }
 chatServer(app);
+
+
+// Market Data Feed
+
+function emitData() {
+    const N_DATA_PTS = 100;
+    var slugData = {
+        cash: data.cash,
+        initialValue: data.initialValue
+    };
+
+    var holdings = [];
+    for (var holdingTick in data.holdings) {
+        // returns value, but just need to advance pointer
+        DATA_SERVICE.getNext(holdingTick);
+
+        // assemble holding object
+        var holding = {
+            ticker: holdingTick,
+            name: DATA_SERVICE.getName(holdingTick),
+            price: DATA_SERVICE.getLastN(holdingTick, N_DATA_PTS),
+            quantity: data.holdings[holdingTick]
+        };
+        holdings.push(holding);
+    }
+
+    holdings.sort(function (a, b) {
+        function holdingValue (x) {
+            var price = x.price[x.price.length - 1];
+            var qty = x.quantity;
+            return price * qty;
+        }
+
+        if (holdingValue(a) < holdingValue(b)) {
+            return -1;
+        } else if (holdingValue(a) > holdingValue(b)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    slugData.holdings = holdings
+
+
+    var slug = JSON.stringify(slugData);
+    io.emit('portfolio data', slug);
+
+}
+var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
+
 
 http.listen(server_port, server_ip_address, function() {
     console.log("main server started.")
