@@ -23,7 +23,7 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 const DATA_UPD_INTERVAL = 1000;
 
 // starting cash for the portfolio
-const START_CASH = 1000000;
+const START_CASH = 100000;
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
