@@ -21,6 +21,9 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 // interval (milliseconds) for updating frontend
 const DATA_UPD_INTERVAL = 500;
 
+// starting cash for the portfolio
+const START_CASH = 1000000;
+
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
@@ -35,8 +38,8 @@ app.use(express.static(path.join(__dirname, 'Angular')));
 
 // share an object of the data
 var data = {
-    initialValue: 100,
-    cash: 100,
+    initialValue: START_CASH,
+    cash: START_CASH,
     holdings: {}
 };
 utils.data = data;
