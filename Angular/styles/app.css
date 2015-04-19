@@ -18,18 +18,13 @@
 }
 
 .bg {
-  background: url('http://static.hdw.eweb4.com/media/wallpapers_1920x1200/world/1/1/new-york-world-hd-wallpaper-1920x1200-9853.jpg') no-repeat center center;
+  background: url('../images/new-york-world-hd-wallpaper-1920x1200-9853.jpg') no-repeat center center;
   position: fixed;
   width: 100%;
   height: 275px; /*same height as jumbotron */
   top:0;
   left:0;
   z-index: -1;
-  /* top, transparent black, faked with gradient */
-  linear-gradient(
-      rgba(0, 0, 0, 0.7),
-      rgba(0, 0, 0, 0.7)
-	),
 }
 
 .cash {
