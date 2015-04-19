@@ -126,7 +126,9 @@ function emitData() {
             quantity: data.holdings[holdingTick],
         };
         holding.holdingValue = utils.holdingValue(holding);
-        holdings.push(holding);
+        if (holding.quantity != 0) {
+            holdings.push(holding);
+        }
     }
 
     holdings.sort(utils.compareHoldings);
