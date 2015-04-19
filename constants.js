@@ -8,7 +8,8 @@ var constants = {
         BUY: "buy",
         SELL: "sell",
         QUOTE: "quote",
-        PORTFOLIO: "display"
+        PORTFOLIO: "display",
+        BOT: "bots"
     },
     ACTIONS: {
         MARKET: "mkt",
@@ -21,7 +22,10 @@ var constants = {
         "![buy|sell] [ticker] [quantity] [type]. " +
         "For example, !buy goog 100 mkt or !sell aapl 50 mkt. " +
         "Quote commands should be in the following format: " +
-        "!quote [ticker]. For example, !quote tsla."
+        "!quote [ticker]. For example, !quote tsla.",
+    // interval (milliseconds) for updating frontend
+    BOT_UPD_INTERVAL: 1245
+
 };
 
 module.exports = constants;

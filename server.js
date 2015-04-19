@@ -22,9 +22,6 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 // interval (milliseconds) for updating frontend
 const DATA_UPD_INTERVAL = 1000;
 
-// interval (milliseconds) for updating frontend
-const BOT_UPD_INTERVAL = 1245;
-
 // starting cash for the portfolio
 const START_CASH = 1000000;
 
@@ -175,8 +172,15 @@ function toProperCase(mName) {
 }
 
 var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
-var bot1 = setInterval(runBot, BOT_UPD_INTERVAL, { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew', loudness: 0.3 });
-var bot2 = setInterval(runBot, BOT_UPD_INTERVAL, { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew', loudness: 0.2 });
+var bot1 = { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew',
+             loudness: 0.3 };
+var bot2 = { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew',
+             loudness: 0.2 };
+
+var bots = [bot1, bot2];
+utils.bots = bots;
+utils.runBot = runBot;
+utils.botAction('on');
 
 
 http.listen(server_port, server_ip_address, function() {

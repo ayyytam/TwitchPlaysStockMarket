@@ -49,7 +49,7 @@ function executeMarketOrder(command, ticker, quantity) {
         console.log("NaN error. Price:", price);
         return LOW_VOLUME_MESSAGE;
     }
-    
+
     if (isNaN(quantity)) {
         console.log("NaN error. Quantity:", quantity);
         return ERROR_MESSAGE;
@@ -113,7 +113,35 @@ function compareHoldings (a, b) {
     }
 }
 
+function botAction(cmd) {
+    switch (cmd) {
+        case "off":
+            if (utils.botControl) {
+                utils.botControl.map(function (botController) {
+                    clearInterval(botController);
+                });
+                utils.botControl = null;
+                return "Bots OFFLINE.";
+            } else {
+                return "Bots are already offline.";
+            }
+        case "on":
+            if (!utils.botControl) {
+                console.log("starting bots...");
+                utils.botControl = utils.bots.map(function (bot) {
+                    return setInterval(utils.runBot, CONSTANTS.BOT_UPD_INTERVAL, bot);
+                });
+                return "Bots ONLINE.";
+            } else {
+                return "Bots are already online.";
+            }
+        default:
+            return "Invalid bot command.";
+    }
+}
+
 var utils = {
+    botAction: botAction,
     compareHoldings: compareHoldings,
     holdingValue: holdingValue,
     parseMessage: function (message) {
@@ -155,6 +183,10 @@ var utils = {
 
             case COMMANDS.PORTFOLIO:
                 return displayHoldings();
+
+            case COMMANDS.BOT:
+                var botCommand = tokens[1];
+                return botAction(botCommand);
 
             default:
                 console.log("Invalid command", command);
