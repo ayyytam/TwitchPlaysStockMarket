@@ -166,8 +166,8 @@ function runBot(opts) {
 }
 
 var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
-var bot1 = setInterval(runBot, BOT_UPD_INTERVAL, { name: 'UserX1', loudness: 0.3 });
-var bot2 = setInterval(runBot, BOT_UPD_INTERVAL, { name: 'UserX2', loudness: 0.5 });
+var bot1 = setInterval(runBot, BOT_UPD_INTERVAL, { name: 'UserX1', loudness: 0.7 });
+var bot2 = setInterval(runBot, BOT_UPD_INTERVAL, { name: 'UserX2', loudness: 0.8 });
 
 
 http.listen(server_port, server_ip_address, function() {
