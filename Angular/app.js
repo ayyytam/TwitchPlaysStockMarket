@@ -390,7 +390,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 			        subtitle: {
 			        },
 			        xAxis: {
-			            type: 'datetime',
+			            //type: 'datetime',
 			            minRange: 14 * 24 * 3600000 // fourteen days
 			        },
 			        yAxis: {

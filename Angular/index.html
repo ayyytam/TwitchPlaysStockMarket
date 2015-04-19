@@ -34,7 +34,11 @@
 
             <div class="panel panel-default" ng-repeat="stock in dashboard.stocks">
                 <div class="panel-heading">
-                    <div class="panel-title"><h4>{{stock.ticker}} ({{stock.name}}): <em>{{stock.price[stock.price.length - 1] | currency}}</em></h4></div>
+                    <div class="panel-title">
+                        <h4>{{stock.ticker | uppercase}} ({{stock.name}}):
+                            <em>{{stock.price[stock.price.length - 1] | currency}}</em> <!--ADD CUSTOM STYLING -->
+                        </h4>
+                    </div>
                   </div>
                 <div class="panel-body">
                      <!-- Where stock chart would go -->
