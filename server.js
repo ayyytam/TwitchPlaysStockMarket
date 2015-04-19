@@ -158,7 +158,7 @@ function runBot(opts) {
         var actions = ['buy', 'sell'];
         var tickers = ['TWTR', 'AAPL', 'JPM', 'GRPN', 'YHOO',
                    'TSLA', 'KO', 'GOOG', 'FB', 'YELP',
-                   'C', 'BAC', 'TR', 'UBS', 'KRFT', 'ETFC'];
+                   'C', 'BAC', 'UBS', 'KRFT', 'ETFC'];
         var orderTypes = ['mkt'];
 
         var action = randSelect(actions);

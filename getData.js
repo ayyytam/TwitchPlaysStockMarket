@@ -1,13 +1,11 @@
-const VALID_EXCHANGES = [
-    "ARCX", // NYSE ARCA
-    "XNAS", // NASDAQ
-];
-
 var http = require('http');
 var request = require('sync-request');
 
 var tickData = {};  // data store for each ticker
 var nextEl = {};  // next element for each ticker
+
+const CONSTANTS = require('./constants.js');
+const VALID_EXCHANGES = CONSTANTS.VALID_EXCHANGES;
 
 function getNext(ticker) {
     if (!tickData.hasOwnProperty(ticker)) {
@@ -32,12 +30,19 @@ function getNewStock(ticker) {
     var url = 'http://globalquotes.xignite.com/v3/xGlobalQuotes.json/GetBars?IdentifierType=Symbol&Identifier=' + ticker + '&StartTime=4/16/2015%209:30%20AM&EndTime=4/16/2015%2010:30%20am&Precision=Seconds&Period=1&_token=6E10075F14A6447E94C8700F8CF7116A';
     var response = request('GET', url);
     var body = JSON.parse(response.getBody());
+
+    if (!body.Bars || body.Bars.length < 200) {
+        return false;
+    }
+    
     body.Bars.forEach(function(bar) {
         tickData[ticker].push(bar.Close);
     });
     // Start data somewhere in the middle, so that historical pulls will have
     // some history.
     nextEl[ticker] = 100;
+
+    return true;
 }
 
 function getName(ticker) {
