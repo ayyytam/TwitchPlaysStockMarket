@@ -7,6 +7,7 @@ var constants = {
         HELP: "help",
         BUY: "buy",
         SELL: "sell",
+        QUOTE: "quote",
         PORTFOLIO: "display"
     },
     ACTIONS: {
@@ -15,10 +16,12 @@ var constants = {
     },
     ERROR_MESSAGE: "Command not recognized",
     INVALID_TICKER_MESSAGE: "Ticker is invalid",
-    LOW_VOLUME_MESSAGE: "Trade not fulfilled - volume is too low",
-    HELP_MESSAGE: "Commands should be in the following format: " +
-        "!action ticker quantity type. " +
-        "For example, !buy goog 100 mkt or !sell aapl 50 mkt",
+    LOW_VOLUME_MESSAGE: "Volume is too low to trade",
+    HELP_MESSAGE: "Trade commands should be in the following format: " +
+        "![buy|sell] [ticker] [quantity] [type]. " +
+        "For example, !buy goog 100 mkt or !sell aapl 50 mkt. " +
+        "Quote commands should be in the following format: " +
+        "!quote [ticker]. For example, !quote tsla."
 };
 
 module.exports = constants;
