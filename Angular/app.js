@@ -494,6 +494,15 @@ function parallax(){
     $('.bg').css('height', (jumboHeight-scrolled) + 'px');
 }
 
+
+// Scrolling Stuff
+var stickyTop = $('.sticky').offset().top; // returns number
 $(window).scroll(function(e){
-    parallax();
+    parallax(); //parallax scrolling
+	var windowTop = $(window).scrollTop(); // returns number
+	if (stickyTop < windowTop) {
+		$('.sticky').css({ position: 'fixed', top: 0 });
+	} else {
+		$('.sticky').css('position','static');
+	}
 });
