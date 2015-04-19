@@ -30,14 +30,14 @@
                 Gain/Loss:
                 <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em>
             </h4>
-            <p>We have {{getNumberOfHoldings()}} holding(s) in our portfolio.<p>
+            <p>We have <em class="numbers">{{getNumberOfHoldings()}}</em> holding(s) in our portfolio.<p>
 
             <div class="panel panel-default" ng-repeat="stock in dashboard.stocks">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <h4>{{stock.ticker | uppercase}}
                             ({{stock.name}})
-                            Price: 
+                            Price:
                             <em class="cash">{{stock.price[stock.price.length - 1] | currency}}</em> <!--ADD CUSTOM STYLING -->
                             | Shares:
                             <em class="numbers">{{stock.quantity}}</em>
