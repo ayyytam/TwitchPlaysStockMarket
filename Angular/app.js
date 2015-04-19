@@ -429,7 +429,8 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 			        series: [{
 			            type: 'area',
 			            pointInterval: 24 * 3600 * 1000,
-			            data: holding.price
+			            data: holding.price,
+						name: holding.name
 			        }]
 			    });
 				//TODO Add chart updater here?
