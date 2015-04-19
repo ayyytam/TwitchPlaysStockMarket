@@ -442,12 +442,14 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
 	// Handle sending messages
 	$('#chat-window form').submit(function() {
-		chatData = { msg: $('#m').val(),
-		             userid: userid
-				};
-		var chatJSON = JSON.stringify(chatData);
-	    socket.emit('chat message', chatJSON);
-	    $('#m').val('');
+		if ($.trim($('#m').val())) {
+			chatData = { msg: $('#m').val(),
+			             userid: userid
+					};
+			var chatJSON = JSON.stringify(chatData);
+		    socket.emit('chat message', chatJSON);
+		    $('#m').val('');
+		}
 	    return false;
 	});
 
