@@ -36,7 +36,8 @@
                 <div class="panel-heading">
                     <div class="panel-title">
                         <h4>{{stock.ticker | uppercase}}
-                            ({{stock.name}}):
+                            ({{stock.name}})
+                            Price: 
                             <em class="cash">{{stock.price[stock.price.length - 1] | currency}}</em> <!--ADD CUSTOM STYLING -->
                             | Shares:
                             <em class="numbers">{{stock.quantity}}</em>
@@ -45,7 +46,7 @@
                   </div>
                 <div class="panel-body">
                      <!-- Where stock chart would go -->
-                     <div ng-class="'ticker-' + stock.ticker" style="min-width: 310px; height: 175px; margin: 0 auto">a</div>
+                     <div ng-class="'ticker-' + stock.ticker" style="min-width: 310px; height: 175px; margin: 0 auto"></div>
                 </div>
                 <!--div class="panel-footer"><h4><em>{{stock.price | currency}}</em></h4></div-->
             </div>
@@ -55,7 +56,7 @@
         <!-- Where chat window will go -->
         <div class="col-md-4">
             <!--h2>Chat Window</h2-->
-            <div id="chat-window" class="panel panel-info">
+            <div id="chat-window" class="panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="panel-title">Chat or place orders here!</h3>
                 </div>

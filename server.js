@@ -107,7 +107,7 @@ chatServer(app);
 
 
 function emitData() {
-    const N_DATA_PTS = 100;
+    const N_DATA_PTS = 50;
     var slugData = {
         cash: data.cash,
         initialValue: data.initialValue

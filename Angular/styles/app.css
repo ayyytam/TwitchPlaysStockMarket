@@ -25,6 +25,11 @@
   top:0;
   left:0;
   z-index: -1;
+  /* top, transparent black, faked with gradient */
+  linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+	),
 }
 
 .cash {
