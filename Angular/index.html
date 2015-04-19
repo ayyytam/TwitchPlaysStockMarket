@@ -24,11 +24,12 @@
             <h2>Our Portfolio: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em> Cash: <em class="cash">{{getCash() | currency}}</em></h2>
             <div class="panel panel-info" ng-repeat="stock in dashboard.stocks">
                 <div class="panel-heading">
-                    <div class="panel-title"><h4>{{stock.ticker}} ({{stock.name}}): <em>{{stock.price | currency}}</em></h4></div>
+                    <div class="panel-title"><h4>{{stock.ticker}} ({{stock.name}}): <em>{{stock.price[stock.price.length - 1] | currency}}</em></h4></div>
                   </div>
                 <div class="panel-body">
                      <!-- Where stock chart would go -->
-                     <div ng-class="'ticker-' + stock.ticker" style="min-width: 310px; height: 200px; margin: 0 auto">asdfads</div>
+                     <div ng-class="'ticker-' + stock.ticker" style="min-width: 310px; height: 200px; margin: 0 auto">a</div>
+                     <!--div ng-class="'ticker-' + stock.ticker"></div-->
                 </div>
                 <!--div class="panel-footer"><h4><em>{{stock.price | currency}}</em></h4></div-->
             </div>
