@@ -1,20 +1,11 @@
-const COMMANDS = {
-    HELP: "help",
-    BUY: "buy",
-    SELL: "sell",
-    PORTFOLIO: "display"
-};
-
-const ACTIONS = {
-    MARKET: "mkt",
-    LIMIT: "limit"
-};
-
-const ERROR_MESSAGE = "Command not recognized"
-
-const HELP_MESSAGE = "Commands should be in the following format: " +
-    "!action ticker quantity type. " +
-    "For example, !buy goog 100 mkt or !sell aapl 50 mkt";
+const CONSTANTS = require('./constants.js');
+const VALID_EXCHANGES = CONSTANTS.VALID_EXCHANGES;
+const COMMANDS = CONSTANTS.COMMANDS;
+const ACTIONS = CONSTANTS.ACTIONS;
+const ERROR_MESSAGE = CONSTANTS.ERROR_MESSAGE;
+const INVALID_TICKER_MESSAGE = CONSTANTS.INVALID_TICKER_MESSAGE;
+const LOW_VOLUME_MESSAGE = CONSTANTS.LOW_VOLUME_MESSAGE;
+const HELP_MESSAGE = CONSTANTS.HELP_MESSAGE;
 
 function displayHoldings() {
     var str = "cash: " + utils.data.cash + ", holdings: [";
@@ -37,11 +28,26 @@ function getPrice(ticker) {
     return utils.DATA_SERVICE.getNext(ticker);
 }
 
+function getName(ticker) {
+    return utils.DATA_SERVICE.getName(ticker);
+}
+
 function executeMarketOrder(command, ticker, quantity) {
     var data = utils.data;
     var price = getPrice(ticker);
-    if (isNaN(price) || isNaN(quantity)) {
-        console.log(price, quantity);
+
+    if (!getName(ticker)) {
+        console.log("Invalid ticker - does not exist");
+        return INVALID_TICKER_MESSAGE;
+    }
+
+    if (isNaN(price)) {
+        console.log("NaN error. Price:", price);
+        return LOW_VOLUME_MESSAGE;
+    }
+    
+    if (isNaN(quantity)) {
+        console.log("NaN error. Quantity:", quantity);
         return ERROR_MESSAGE;
     }
 
@@ -118,6 +124,7 @@ var utils = {
                     return "Limit orders are not currently supported";
 
                 default:
+                    console.log("Invalid action", action);
                     return ERROR_MESSAGE;
                 }
                 break;
@@ -126,6 +133,7 @@ var utils = {
                 return displayHoldings();
 
             default:
+                console.log("Invalid command", command);
                 return ERROR_MESSAGE;
             }
         }
