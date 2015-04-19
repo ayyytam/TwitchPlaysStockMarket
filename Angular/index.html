@@ -17,12 +17,20 @@
         <div class="bg"></div>
         <div class="jumbotron">
             <h1>Twitch Plays Stock Market<img src="images/pikachu.png" style="text-align: right" width="175px"></h1>
-            <p>Crowdsource Stock Trading</p> 
+            <h3>Crowdsource Stock Trading</h3>
         </div>
 
         <!-- Where stock panels will go -->
         <div class="col-md-8">
-            <h2>Portfolio Value: <em class="cash">{{getPortfolioValue() | currency}}</em> Gain/Loss: <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em> Cash: <em class="cash">{{getCash() | currency}}</em></h2>
+            <h3>
+                Portfolio Value:
+                <em class="cash">{{getPortfolioValue() | currency}}</em>
+                Cash:
+                <em class="cash">{{getCash() | currency}}</em>
+                Gain/Loss:
+                <em ng-class="getNetGainLoss() > 0 ? 'gain' : 'loss'">{{getNetGainLoss() | gainLossFilter}}</em>
+            </h3>
+            <p>We have {{getNumberOfHoldings()}} holding(s) in our portfolio.<p>
 
             <div class="panel panel-default" ng-repeat="stock in dashboard.stocks">
                 <div class="panel-heading">
@@ -31,7 +39,6 @@
                 <div class="panel-body">
                      <!-- Where stock chart would go -->
                      <div ng-class="'ticker-' + stock.ticker" style="min-width: 310px; height: 200px; margin: 0 auto">a</div>
-                     <!--div ng-class="'ticker-' + stock.ticker"></div-->
                 </div>
                 <!--div class="panel-footer"><h4><em>{{stock.price | currency}}</em></h4></div-->
             </div>
@@ -40,10 +47,10 @@
 
         <!-- Where chat window will go -->
         <div class="col-md-4">
-            <h2>Chat Window</h2>
-            <div id="chat-window" class="panel panel-danger">
+            <!--h2>Chat Window</h2-->
+            <div id="chat-window" class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Chat or place orders here</h3>
+                    <h3 class="panel-title">Chat or place orders here!</h3>
                 </div>
                 <div class="panel-body" style="min-height: 400px;max-height: 400px;overflow-y: scroll;">
                     <ul id="messages"></ul>
@@ -56,11 +63,6 @@
             </div>
         </div>
     </div>
-    <!--div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div-->
-
-    <footer style="display: block;">
-        <div class=""><h3>There is/are {{getNumberOfHoldings()}} stock(s) in your portfolio.</h3></div>
-    </footer>
 
     <!-- Libs -->
     <script src="scripts/angular.min.js"></script>
