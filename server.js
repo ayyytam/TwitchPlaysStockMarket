@@ -21,6 +21,9 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 // interval (milliseconds) for updating frontend
 const DATA_UPD_INTERVAL = 500;
 
+// interval (milliseconds) for updating frontend
+const BOT_UPD_INTERVAL = 643;
+
 // starting cash for the portfolio
 const START_CASH = 1000000;
 
@@ -136,7 +139,35 @@ function emitData() {
     io.emit('portfolio data', slug);
 
 }
+
+function randBetween(min, max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+function randSelect(arr) {
+    return arr[randBetween(0, arr.length - 1)];
+}
+
+function runBot(opts) {
+    if (Math.random() > opts.loudness) {
+        var actions = ['buy', 'sell'];
+        var tickers = ['TWTR', 'AAPL', 'JPM', 'GRPN', 'YHOO',
+                   'TSLA', 'KO', 'GOOG', 'FB', 'YELP',
+                   'C', 'BAC', 'TR', 'UBS', 'KRFT', 'ETFC'];
+        var orderTypes = ['mkt'];
+
+        var action = randSelect(actions);
+        var ticker = randSelect(tickers);
+        var orderType = randSelect(orderTypes);
+        var qty = randBetween(1, 100) * 5;
+        var msg = '!' + action + ' ' + ticker + ' ' + qty + ' ' + orderType;
+        handleChat(msg);
+    }
+}
+
 var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
+var bot1 = setInterval(runBot, BOT_UPD_INTERVAL, { name: 'UserX1', loudness: 0.7 });
+var bot2 = setInterval(runBot, BOT_UPD_INTERVAL, { name: 'UserX2', loudness: 0.8 });
 
 
 http.listen(server_port, server_ip_address, function() {
