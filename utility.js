@@ -55,7 +55,7 @@ function executeMarketOrder(command, ticker, quantity) {
     }
     else if (command === COMMANDS.SELL) {
         if (!data.holdings[ticker]
-            || quantity > data[ticker].holdings) {
+            || quantity > data.holdings[ticker]) {
             return "Insufficient holdings";
         }
         multiplier = -1;
@@ -71,7 +71,25 @@ function executeMarketOrder(command, ticker, quantity) {
         ticker.toUpperCase() + " for " + price + " each";
 }
 
+function holdingValue (x) {
+    var price = x.price[x.price.length - 1];
+    var qty = x.quantity;
+    return price * qty;
+}
+
+function compareHoldings (a, b) {
+    if (a.holdingValue < b.holdingValue) {
+        return -1;
+    } else if (a.holdingValue > b.holdingValue) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 var utils = {
+    compareHoldings: compareHoldings,
+    holdingValue: holdingValue,
     parseMessage: function (message) {
         console.log("parseMessage", message);
         if (message && message.charAt(0) === "!") {

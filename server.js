@@ -98,6 +98,8 @@ chatServer(app);
 
 // Market Data Feed
 
+
+
 function emitData() {
     const N_DATA_PTS = 100;
     var slugData = {
@@ -115,28 +117,18 @@ function emitData() {
             ticker: holdingTick,
             name: DATA_SERVICE.getName(holdingTick),
             price: DATA_SERVICE.getLastN(holdingTick, N_DATA_PTS),
-            quantity: data.holdings[holdingTick]
+            quantity: data.holdings[holdingTick],
         };
+        holding.holdingValue = utils.holdingValue(holding);
         holdings.push(holding);
     }
 
-    holdings.sort(function (a, b) {
-        function holdingValue (x) {
-            var price = x.price[x.price.length - 1];
-            var qty = x.quantity;
-            return price * qty;
-        }
-
-        if (holdingValue(a) < holdingValue(b)) {
-            return -1;
-        } else if (holdingValue(a) > holdingValue(b)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    });
-    slugData.holdings = holdings
-
+    holdings.sort(utils.compareHoldings);
+    var holdingsValue = holdings.reduce(function(accum, x) {
+            return accum + x.holdingValue;
+        }, 0);
+    slugData.portfolioValue = holdingsValue + slugData.cash;
+    slugData.holdings = holdings;
 
     var slug = JSON.stringify(slugData);
     io.emit('portfolio data', slug);
