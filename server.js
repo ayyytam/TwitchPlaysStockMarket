@@ -152,7 +152,7 @@ function runBot(opts) {
     if (Math.random() > opts.loudness) {
         var actions = ['buy', 'sell'];
         var tickers = ['TWTR', 'AAPL', 'JPM', 'GRPN', 'YHOO',
-                   'TSLA', 'NEST', 'GOOG', 'FB', 'YELP',
+                   'TSLA', 'KO', 'GOOG', 'FB', 'YELP',
                    'C', 'BAC', 'TR', 'UBS', 'KRFT', 'ETFC'];
         var orderTypes = ['mkt'];
 
