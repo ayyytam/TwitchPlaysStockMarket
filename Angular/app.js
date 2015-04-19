@@ -340,6 +340,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 				   portfolioValue: 0,
 				   holdings: [{ticker: "", name: "", price: [], quantity: 0}]};
 	this.stocks = $scope.data.holdings;
+	$scope.charts = []; //TODO might not need this
 	
 	//***********************METHODS***********************//
 
@@ -428,6 +429,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 			            data: holding.price
 			        }]
 			    });
+				//TODO Add chart updater here?
 			});
 		});
   	}
