@@ -79,16 +79,18 @@ app.use(function(err, req, res, next) {
   });
 });
 
+function handleChat(msg) {
+       io.emit('chat message', msg);
+       var result = utils.parseMessage(msg);
+       if (result) {
+           io.emit('chat message', result);
+       }
+}
+
 function chatServer(app) {
     io.on('connection', function(socket) {
         console.log('a user connected');
-        socket.on('chat message', function(msg) {
-            io.emit('chat message', msg);
-            var result = utils.parseMessage(msg);
-            if (result) {
-                io.emit('chat message', result);
-            }
-        });
+        socket.on('chat message', handleChat);
     });
 
     console.log('chat server started.');
