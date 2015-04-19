@@ -20,10 +20,10 @@ var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 // interval (milliseconds) for updating frontend
-const DATA_UPD_INTERVAL = 500;
+const DATA_UPD_INTERVAL = 1000;
 
 // interval (milliseconds) for updating frontend
-const BOT_UPD_INTERVAL = 643;
+const BOT_UPD_INTERVAL = 1245;
 
 // starting cash for the portfolio
 const START_CASH = 1000000;
@@ -153,7 +153,7 @@ function randSelect(arr) {
 }
 
 function runBot(opts) {
-    if (Math.random() > opts.loudness) {
+    if (Math.random() < opts.loudness) {
         var actions = ['buy', 'sell'];
         var tickers = ['TWTR', 'AAPL', 'JPM', 'GRPN', 'YHOO',
                    'TSLA', 'KO', 'GOOG', 'FB', 'YELP',
@@ -175,8 +175,8 @@ function toProperCase(mName) {
 }
 
 var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
-var bot1 = setInterval(runBot, BOT_UPD_INTERVAL, { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew', loudness: 0.7 });
-var bot2 = setInterval(runBot, BOT_UPD_INTERVAL, { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew', loudness: 0.8 });
+var bot1 = setInterval(runBot, BOT_UPD_INTERVAL, { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew', loudness: 0.3 });
+var bot2 = setInterval(runBot, BOT_UPD_INTERVAL, { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew', loudness: 0.2 });
 
 
 http.listen(server_port, server_ip_address, function() {
