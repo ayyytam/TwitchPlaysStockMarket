@@ -437,7 +437,6 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
   	$scope.updateStockCharts = function() {
   	}
 
-  	//TODO add event listener to update data. Should also call updateStockCharts function
   	$scope.initializeStockCharts();
   	var socket = io();
 
@@ -456,7 +455,8 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
 	// Handle receiving messages
 	socket.on('chat message', function(msg) {
-	    $('#messages').append($('<li>').text(msg));
+		$('#messages').append($('<li>').text(msg));
+		$('#chat-scroll').scrollTop($('#chat-scroll')[0].scrollHeight);
 	});
 
 	socket.on('userid', function(msg) {
@@ -468,7 +468,6 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 	socket.on('portfolio data', function(msg) {
 	    slug = JSON.parse(msg);
 	    $scope.data = slug;
-	    console.log(slug);
 	    $scope.$apply();
 	    $scope.initializeStockCharts();
 	    that.stocks = $scope.data.holdings;
