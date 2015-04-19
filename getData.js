@@ -4,6 +4,8 @@ var request = require('sync-request');
 var tickData = {};  // data store for each ticker
 var nextEl = {};  // next element for each ticker
 
+var nameCache = {}; // cache names
+
 const CONSTANTS = require('./constants.js');
 const VALID_EXCHANGES = CONSTANTS.VALID_EXCHANGES;
 
@@ -46,12 +48,17 @@ function getNewStock(ticker) {
 }
 
 function getName(ticker) {
+    if (nameCache[ticker]) {
+        return nameCache[ticker];
+    }
+
     var url = 'http://globalmaster.xignite.com/xglobalmaster.json/GetMasterByIdentifier?IdentifierType=Symbol&Identifier=' + ticker + '&StartDate=4/16/2015&EndDate=4/16/2015&_token=6E10075F14A6447E94C8700F8CF7116A';
     var response = request('GET', url);
     var body = JSON.parse(response.getBody());
 
     for (var i = 0, length = body.length; i !== length; ++i) {
         if (VALID_EXCHANGES.indexOf(body[i].Exchange) !== -1) {
+            nameCache[ticker] = body[i].Name;
             return body[i].Name;
         }
     }
