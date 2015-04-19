@@ -83,21 +83,20 @@ app.use(function(err, req, res, next) {
   });
 });
 
-function handleChat(chat) {
-    //    io.emit('chat message', chat);
-    //    chatData = JSON.parse(chat);
-    //    msg = chat.msg;
-       msg = chat;
-       var result = utils.parseMessage(msg);
-       if (result) {
-           io.emit('chat message', result);
-       }
+function handleChat(chatJSON) {
+    var chat = JSON.parse(chatJSON);
+    io.emit('chat message', chat.userid + ': ' + chat.msg);
+    var result = utils.parseMessage(chat.msg);
+    if (result) {
+        io.emit('chat message', result);
+    }
 }
 
 function chatServer(app) {
     io.on('connection', function(socket) {
-        console.log('a user connected');
-        socket.emit('userid', randSelect(POKEMON.adjs) + randSelect(POKEMON.pokemon));
+        var username = toProperCase(randSelect(POKEMON.adjs)) + randSelect(POKEMON.pokemon);
+        console.log(username + ' connected');
+        socket.emit('userid', username);
         socket.on('chat message', handleChat);
     });
 
@@ -166,13 +165,18 @@ function runBot(opts) {
         var orderType = randSelect(orderTypes);
         var qty = randBetween(1, 100) * 5;
         var msg = '!' + action + ' ' + ticker + ' ' + qty + ' ' + orderType;
+        msg = JSON.stringify({msg: msg, userid: opts.name})
         handleChat(msg);
     }
 }
 
+function toProperCase(mName) {
+    return mName.charAt(0).toUpperCase() + mName.substring(1)
+}
+
 var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
-var bot1 = setInterval(runBot, BOT_UPD_INTERVAL, { name: randSelect(POKEMON.adjs) + 'Mew', loudness: 0.7 });
-var bot2 = setInterval(runBot, BOT_UPD_INTERVAL, { name: randSelect(POKEMON.adjs) + 'Mew', loudness: 0.8 });
+var bot1 = setInterval(runBot, BOT_UPD_INTERVAL, { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew', loudness: 0.7 });
+var bot2 = setInterval(runBot, BOT_UPD_INTERVAL, { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew', loudness: 0.8 });
 
 
 http.listen(server_port, server_ip_address, function() {

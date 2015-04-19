@@ -2,7 +2,7 @@ var twitchPlaysStockMarket = angular.module('twitchPlaysStockMarket', []);
 
 twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, $filter) {
 	//DUMMY DATA (for tsting only)
-	/*$scope.data = {cash: 2003430.55, 
+	/*$scope.data = {cash: 2003430.55,
 				   initialValue: 400000,
 				   portfolioValue: 435000,
 				   holdings: [{ticker: "GOOG", name: "Google", price: [0.8446, 0.8445, 0.8444, 0.8451,    0.8418, 0.8264,    0.8258, 0.8232,    0.8233, 0.8258,
@@ -333,15 +333,15 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 			                0.7855, 0.7866, 0.7865, 0.7795, 0.7758, 0.7717, 0.761, 0.7497, 0.7471, 0.7473,
 			                0.7407, 0.7288, 0.7074, 0.6927, 0.7083, 0.7191, 0.719, 0.7153, 0.7156, 0.7158,
 			                0.714, 0.7119, 0.7129, 0.7129, 0.7049, 0.7095], quantity: 200}]};*/
-	
+
 	//Initial Value
-	$scope.data = {cash: 0, 
+	$scope.data = {cash: 0,
 				   initialValue: 0,
 				   portfolioValue: 0,
 				   holdings: [{ticker: "", name: "", price: [], quantity: 0}]};
 	this.stocks = $scope.data.holdings;
 	$scope.charts = []; //TODO might not need this
-	
+
 	//***********************METHODS***********************//
 
 	$scope.addStock = function(newStock) {
@@ -358,7 +358,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
   	$scope.getNetGainLoss = function() {
   		return $scope.data.portfolioValue - $scope.data.initialValue;
-  	}; 
+  	};
 
   	$scope.getCash = function() {
   		return $scope.data.cash;
@@ -443,15 +443,25 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
 	// Handle sending messages
 	$('#chat-window form').submit(function() {
-	    socket.emit('chat message', $('#m').val());
+		chatData = { msg: $('#m').val(),
+		             userid: userid
+				};
+		var chatJSON = JSON.stringify(chatData);
+	    socket.emit('chat message', chatJSON);
 	    $('#m').val('');
 	    return false;
 	});
+
+	var userid = 'Unknown';
 
 	// Handle receiving messages
 	socket.on('chat message', function(msg) {
 	    $('#messages').append($('<li>').text(msg));
 	});
+
+	socket.on('userid', function(msg) {
+		userid = msg;
+	})
 
 	// Handle receiving market data
 	var that = this;
