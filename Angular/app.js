@@ -1,7 +1,6 @@
 var twitchPlaysStockMarket = angular.module('twitchPlaysStockMarket', []);
 
 twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, $filter) {
-	$scope.stocks = [];
 	//DUMMY DATA (for tsting only)
 	/*$scope.data = {cash: 2003430.55, 
 				   initialValue: 400000,
@@ -334,6 +333,8 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 			                0.7855, 0.7866, 0.7865, 0.7795, 0.7758, 0.7717, 0.761, 0.7497, 0.7471, 0.7473,
 			                0.7407, 0.7288, 0.7074, 0.6927, 0.7083, 0.7191, 0.719, 0.7153, 0.7156, 0.7158,
 			                0.714, 0.7119, 0.7129, 0.7129, 0.7049, 0.7095], quantity: 200}]};*/
+	
+	//Initial Value
 	$scope.data = {cash: 0, 
 				   initialValue: 0,
 				   portfolioValue: 0,
@@ -362,6 +363,10 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
   		return $scope.data.cash;
   	};
 
+  	$scope.getPortfolioValue = function() {
+  		return $scope.data.portfolioValue;
+  	}
+
   	$scope.getNumberOfHoldings = function() {
     	return $scope.data.holdings.length;
   	};
@@ -370,7 +375,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
   		return stock.ticker;
   	}
 
-  	$scope.updateStockCharts = function() {
+  	$scope.initializeStockCharts = function() {
   		$scope.data.holdings.forEach(function(holding) {
 			var tickerContainerName = ".ticker-" + holding.ticker;
 			$(function () {
@@ -382,9 +387,6 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 			            text: null//TODO add something here
 			        },
 			        subtitle: {
-			            text: document.ontouchstart === undefined ?
-			                    'Click and drag in the plot area to zoom in' :
-			                    'Pinch the chart to zoom in'
 			        },
 			        xAxis: {
 			            type: 'datetime',
@@ -422,9 +424,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
 			        series: [{
 			            type: 'area',
-			            name: 'USD to EUR',
 			            pointInterval: 24 * 3600 * 1000,
-			            pointStart: Date.UTC(2006, 0, 1),
 			            data: holding.price
 			        }]
 			    });
@@ -432,8 +432,11 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 		});
   	}
 
+  	$scope.updateStockCharts = function() {
+  	}
+
   	//TODO add event listener to update data. Should also call updateStockCharts function
-  	$scope.updateStockCharts();
+  	$scope.initializeStockCharts();
   	var socket = io();
 
 	// Handle sending messages
@@ -453,10 +456,10 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 	socket.on('portfolio data', function(msg) {
 	    slug = JSON.parse(msg);
 	    $scope.data = slug;
-	    $scope.$apply();
-	    $scope.updateStockCharts();
-	    that.stocks = $scope.data.holdings;
 	    console.log(slug);
+	    $scope.$apply();
+	    $scope.initializeStockCharts();
+	    that.stocks = $scope.data.holdings;
 	});
 });
 
