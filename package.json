@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha -- --ui tdd --reporter spec --timeout 10000 --slow 500 test/*.js",
-    "start": "node ./bin/www"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
