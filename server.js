@@ -1,29 +1,26 @@
+'use strict';
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var _ = require('lodash');
 
 var app = express();
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var utils = require('./utility.js');
-const DATA_SERVICE = require('./getData.js');
-const POKEMON = require('./pokenames.js');
+var DATA_SERVICE = require('./getData.js');
+var POKEMON = require('./pokenames.js');
 
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 // interval (milliseconds) for updating frontend
-const DATA_UPD_INTERVAL = 3000;
+// var DATA_UPD_INTERVAL = 3000;
 
 // starting cash for the portfolio
-const START_CASH = 100000;
+var START_CASH = 100000;
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -80,6 +77,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
+function toProperCase(mName) {
+    return mName.charAt(0).toUpperCase() + mName.substring(1);
+}
+
 function handleChat(chatJSON) {
     var chat = JSON.parse(chatJSON);
     io.emit('chat message', chat.userid + ': ' + chat.msg);
@@ -91,7 +92,7 @@ function handleChat(chatJSON) {
 
 function chatServer(app) {
     io.on('connection', function(socket) {
-        var username = toProperCase(randSelect(POKEMON.adjs)) + randSelect(POKEMON.pokemon);
+        var username = toProperCase(_.sample(POKEMON.adjs)) + _.sample(POKEMON.pokemon);
         console.log(username + ' connected');
         socket.emit('userid', username);
         socket.on('chat message', handleChat);
@@ -105,9 +106,9 @@ chatServer(app);
 // Market Data Feed
 
 
-
+/*
 function emitData() {
-    const N_DATA_PTS = 50;
+    var N_DATA_PTS = 50;
     var slugData = {
         cash: data.cash,
         initialValue: data.initialValue
@@ -142,14 +143,7 @@ function emitData() {
     io.emit('portfolio data', slug);
 
 }
-
-function randBetween(min, max) {
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
-
-function randSelect(arr) {
-    return arr[randBetween(0, arr.length - 1)];
-}
+*/
 
 function runBot(opts) {
     if (Math.random() < opts.loudness) {
@@ -159,25 +153,21 @@ function runBot(opts) {
                    'C', 'BAC', 'UBS', 'KRFT', 'ETFC'];
         var orderTypes = ['mkt'];
 
-        var action = randSelect(actions);
-        var ticker = randSelect(tickers);
-        var orderType = randSelect(orderTypes);
-        var qty = randBetween(1, 100) * 5;
+        var action = _.sample(actions);
+        var ticker = _.sample(tickers);
+        var orderType = _.sample(orderTypes);
+        var qty = _.random(100) * 5;
         var msg = '!' + action + ' ' + ticker + ' ' + qty + ' ' + orderType;
-        msg = JSON.stringify({msg: msg, userid: opts.name})
+        msg = JSON.stringify({msg: msg, userid: opts.name});
         handleChat(msg);
     }
 }
 
-function toProperCase(mName) {
-    return mName.charAt(0).toUpperCase() + mName.substring(1)
-}
-
-var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
-var bot1 = { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew',
-             loudness: 0.3 };
-var bot2 = { name: toProperCase(randSelect(POKEMON.adjs)) + 'Mew',
-             loudness: 0.35 };
+// var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
+var bot1 = {name: toProperCase(_.sample(POKEMON.adjs)) + 'Mew',
+             loudness: 0.3};
+var bot2 = {name: toProperCase(_.sample(POKEMON.adjs)) + 'Mew',
+             loudness: 0.35};
 
 var bots = [bot1, bot2];
 utils.bots = bots;
@@ -186,5 +176,5 @@ utils.botAction('on');
 
 
 http.listen(server_port, server_ip_address, function() {
-    console.log("main server started.")
-})
+    console.log('main server started.');
+});

@@ -1,20 +1,35 @@
 {
-  "name": "node",
+  "name": "twitch-plays-stock-market",
+  "version": "1.0.0",
+  "description": "Chat app for stock trading",
   "main": "server.js",
-  "version": "0.0.0",
-  "private": true,
   "scripts": {
+    "test": "NODE_ENV=test ./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha -- --ui tdd --reporter spec --timeout 10000 --slow 500 test/*.js",
     "start": "node ./bin/www"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aiyatam/TwitchPlaysStockMarket"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "",
   "dependencies": {
+    "bluebird": "^2.9.25",
     "body-parser": "~1.12.0",
     "cookie-parser": "~1.3.4",
     "debug": "~2.1.1",
     "express": "~4.12.0",
     "jade": "~1.9.2",
+    "lodash": "^3.7.0",
     "morgan": "~1.5.1",
     "serve-favicon": "~2.2.0",
     "socket.io": "^1.3.5",
-    "sync-request": "^2.0.1"
+    "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+    "chance": "^0.7.3",
+    "istanbul": "^0.3.13",
+    "mocha": "^2.2.4"
   }
 }
