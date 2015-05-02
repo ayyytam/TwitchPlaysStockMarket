@@ -34,7 +34,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
   	$scope.getPortfolioValue = function() {
   		return $scope.data.portfolioValue;
-  	}
+  	};
 
   	$scope.getNumberOfHoldings = function() {
     	return $scope.data.holdings.length;
@@ -42,7 +42,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
   	$scope.getChartTickerClass = function(stock) {
   		return stock.ticker;
-  	}
+  	};
 
   	$scope.initializeStockCharts = function() {
   		$scope.data.holdings.forEach(function(holding) {
@@ -104,10 +104,10 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 				//TODO Add chart updater here?
 			});
 		});
-  	}
+	};
 
   	$scope.updateStockCharts = function() {
-  	}
+  	};
 
   	$scope.initializeStockCharts();
   	var socket = io();
@@ -135,7 +135,7 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 
 	socket.on('userid', function(msg) {
 		userid = msg;
-	})
+	});
 
 	// Handle receiving market data
 	var that = this;
