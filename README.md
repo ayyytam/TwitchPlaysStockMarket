@@ -7,25 +7,28 @@
 * In top directory, run node server.js
 * Go to localhost:3000
 
-# MISC
+# Misc
 The frontend expects the server to pass JSON object with the following structure in order to update:
 
-```json
+```javascript
 {
     cash: 0,
     initialValue: 0,
     portfolioValue: 0,
-    holdings: [{
-                    ticker: <ticker symbol>,
-                    name: <name of company>,
-                    price: [<array of historical prices>],
-                    quantity: <shares held>
-               },
-               {
-                    ticker: <ticker symbol2>,
-                    name: <name of company2>,
-                    price: [<array of historical prices>],
-                    quantity: 0
-               }, ...]
+    holdings: [
+        {
+            ticker: "TSLA", // ticker symbol
+            name: "Tesla Motors Inc", // display name
+            price: [232.95, 233.45, 233.04, 232.62, 232.87, ...], // array of historical prices
+            quantity: 1200 // shares held
+        },
+        {
+            ticker: "DIS",
+            name: "Walt Disney Co",
+            price: [110.81, 110.25, 111.07, 110.66, ...],
+            quantity: 500
+        },
+        ...
+    ]
 }
 ```
