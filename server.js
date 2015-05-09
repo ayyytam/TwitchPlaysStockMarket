@@ -11,7 +11,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var utils = require('./utility.js');
 var DATA_SERVICE = require('./getData.js');
-var POKEMON = require('./pokenames.js');
+var pokenames = require('./pokenames.js');
 
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
@@ -92,7 +92,7 @@ function handleChat(chatJSON) {
 
 function chatServer(app) {
     io.on('connection', function(socket) {
-        var username = toProperCase(_.sample(POKEMON.adjs)) + _.sample(POKEMON.pokemon);
+        var username = pokenames.getUsername();
         console.log(username + ' connected');
         socket.emit('userid', username);
         socket.on('chat message', handleChat);
@@ -164,9 +164,9 @@ function runBot(opts) {
 }
 
 // var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
-var bot1 = {name: toProperCase(_.sample(POKEMON.adjs)) + 'Mew',
+var bot1 = {name: pokename("Mew"),
              loudness: 0.3};
-var bot2 = {name: toProperCase(_.sample(POKEMON.adjs)) + 'Mew',
+var bot2 = {name: pokename("Mew"),
              loudness: 0.35};
 
 var bots = [bot1, bot2];

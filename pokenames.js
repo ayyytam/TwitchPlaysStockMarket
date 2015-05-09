@@ -1,5 +1,7 @@
 'use strict';
 
+let lodash = require('lodash');
+
 const POKEMON = [
     'Bulbasaur',
     'Ivysaur',
@@ -26676,7 +26678,20 @@ const ADJS = [
     'zymotic'
 ];
 
-module.exports = {
-    pokemon: POKEMON,
-    adjs: ADJS
-};
+/**
+ * Returns a randomly generated pokename.
+ *
+ * @param pokemon - if provided, the name of the pokemon to use. Will only
+ *                  generate an adjective for it and return the username.
+ */
+function getName(pokemon) {
+    if (!pokemon) {
+        pokemon = lodash.sample(POKEMON);
+    }
+
+    let adjective = toProperCase(lodash.sample(ADJS));
+
+    return adjective + pokemon;
+}
+
+module.exports = getName;
