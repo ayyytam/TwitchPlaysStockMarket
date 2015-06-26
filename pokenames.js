@@ -1,6 +1,4 @@
-'use strict';
-
-let lodash = require('lodash');
+var lodash = require('lodash');
 
 const POKEMON = [
     'Bulbasaur',
@@ -26689,9 +26687,22 @@ function getName(pokemon) {
         pokemon = lodash.sample(POKEMON);
     }
 
-    let adjective = toProperCase(lodash.sample(ADJS));
+    var adjective = lodash.sample(ADJS);
 
     return adjective + pokemon;
 }
+
+//TODO load this object when exporting module
+/*var pokeName = {
+    getName : function getName(pokemon) {
+        if (!pokemon) {
+            pokemon = lodash.sample(POKEMON);
+        }
+
+        var adjective = lodash.sample(ADJS);
+
+        return adjective + pokemon;
+    }
+};*/
 
 module.exports = getName;

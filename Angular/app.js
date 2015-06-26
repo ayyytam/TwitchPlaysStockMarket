@@ -6,7 +6,8 @@ twitchPlaysStockMarket.controller('DashboardController', function($scope, $log, 
 	$scope.data = {cash: 0,
 				   initialValue: 0,
 				   portfolioValue: 0,
-				   holdings: [{ticker: "", name: "", price: [], quantity: 0}]};
+				   holdings: [{ticker: "", name: "", price: [], quantity: 0}]
+				};
 	this.stocks = $scope.data.holdings;
 	$scope.charts = []; //TODO might not need this
 

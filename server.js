@@ -92,7 +92,8 @@ function handleChat(chatJSON) {
 
 function chatServer(app) {
     io.on('connection', function(socket) {
-        var username = pokenames.getUsername();
+        //var username = pokenames.getUsername();
+        var username = pokenames();
         console.log(username + ' connected');
         socket.emit('userid', username);
         socket.on('chat message', handleChat);
@@ -164,9 +165,10 @@ function runBot(opts) {
 }
 
 // var dataFeed = setInterval(emitData, DATA_UPD_INTERVAL);  // Emit data
-var bot1 = {name: pokename("Mew"),
+console.log(pokenames);
+var bot1 = {name: pokenames("Mew"),
              loudness: 0.3};
-var bot2 = {name: pokename("Mew"),
+var bot2 = {name: pokenames("Mew"),
              loudness: 0.35};
 
 var bots = [bot1, bot2];
